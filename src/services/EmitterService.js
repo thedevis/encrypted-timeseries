@@ -20,8 +20,7 @@ class EmitterService extends EventEmitter{
       //let decrypt = MessageEncodingDecodingUtil.decrypt(encrypt);
       messageQueue.push(encryptMessage.content);
     }
-    //console.log(messageQueue);
-    this.emit("generateMessageStream",messageQueue);
+    return messageQueue.join('|');
   }
 }
 
