@@ -1,19 +1,30 @@
 const EventEmitter = require("events");
-const { MessageEncodingDecodingUtil } = require("../utils/MessageEncodingDecodingUtil");
+const {
+  MessageEncodingDecodingUtil,
+} = require("../utils/MessageEncodingDecodingUtil");
 const { MessageFactory } = require("./MessageFactory");
-class EmitterService{
-    constructor({count:count,source:source}){
-        this.count =  count;
-        this.source=source;
-
+class EmitterService extends EventEmitter{
+  constructor({ count: count, source: source }) {
+    super();
+    this.count = count;
+    this.source = source;
+  }
+    generateMessageStream() {
+    let messageQueue = [];
+    let messageObj = new MessageFactory({ source: this.source });
+    for (let i = 0; i < this.count; i++) {
+      let message = messageObj._message;
+      let checksum = MessageEncodingDecodingUtil.generateSignature(message);
+      message.secret_key = checksum; //sign the message for data integrity
+      let encryptMessage = MessageEncodingDecodingUtil.encrypt(message);
+      //let decrypt = MessageEncodingDecodingUtil.decrypt(encrypt);
+      messageQueue.push(encryptMessage.content);
     }
-    async generateMessageStream(){
-        let messageQueue = [];
-        let messageObj =  new MessageFactory({source:this.source});
-        for(let i=0;i<this.count;i++){
-            messageQueue.push(messageObj._message)
-        }
-        return messageQueue;
-    } 
+    //console.log(messageQueue);
+    this.emit("generateMessageStream",messageQueue);
+  }
 }
-module.exports = {EmitterService}
+
+
+
+module.exports = { EmitterService };
