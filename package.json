@@ -18,6 +18,12 @@
   "homepage": "https://github.com/thedevis/encrypted-timeseries#readme",
   "dependencies": {
     "dotenv": "^10.0.0",
-    "socket.io": "^4.1.3"
+    "express": "^4.17.1",
+    "socket.io": "^4.1.3",
+    "socket.io-client": "^4.1.3"
+  },
+  "optionalDependencies": {
+    "bufferutil": "^4.0.3",
+    "utf-8-validate": "^5.0.5"
   }
 }

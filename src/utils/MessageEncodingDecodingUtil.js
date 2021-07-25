@@ -27,14 +27,12 @@ class MessageEncodingDecodingUtil {
     const decipher = crypto.createDecipheriv(
       algorithm,
       secretKey,
-      Buffer.from(hash.iv, "hex")
+      iv
     );
-
     const decrpyted = Buffer.concat([
-      decipher.update(Buffer.from(hash.content, "hex")),
+      decipher.update(Buffer.from(hash,'hex')),
       decipher.final(),
     ]);
-
     return decrpyted.toString();
   }
   serialize(obj) {

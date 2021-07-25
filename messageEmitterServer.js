@@ -13,6 +13,9 @@ io.on("connection", (socket) => {
     socket.emit("message", emitterServiceObj.generateMessageStream());
   }, 1000 * 5);
 });
+io.on("disconnect",()=>{
+  console.log("client disconnected");
+})
 
 http.listen(port, () => {
   console.log("Server Is Running Port: " + port);
