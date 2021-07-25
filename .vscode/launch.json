@@ -8,17 +8,17 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "listerner",
+            "name": "ListenerService",
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/messageListnerServer.js"
+            "program": "${workspaceFolder}/ListenerService/app.js"
         },
 
         {
             "type": "node",
             "request": "launch",
-            "name": "emitter",
+            "name": "EmitterService",
             "skipFiles": [
                 "<node_internals>/**"
             ],

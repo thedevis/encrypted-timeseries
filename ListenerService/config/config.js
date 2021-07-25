@@ -1,13 +1,9 @@
 const config={
     ENV:process.env.NODE_ENV,
     app:{
-        EMITTER_SERVICE_PORT:process.env.EMITTER_SERVICE_PORT,
-        MESSAGE_CHECKSUM_KEY:process.env.MESSAGE_CHECKSUM_KEY,
         SECRET_KEY:process.env.SECRET_KEY,
         IV:process.env.IV,
-        MESSAGE_MIN_COUNT:process.env.MESSAGE_MIN_COUNT,
-        MESSAGE_MAX_COUNT:process.env.MESSAGE_MAX_COUNT,
-        EMITTER_SERVICE_INTERVAL:process.env.EMITTER_SERVICE_INTERVAL
+        EMITTER_SERVICE:process.env.EMITTER_SERVICE_URL
     },
     mongo:{
         host:process.env.MONGO_HOST,
@@ -17,8 +13,8 @@ const config={
         password:process.env.MONGO_PASSWORD
     },
     rabbitMQ:{
-        host:process.env.RABBIT_MQ_HOST,
-        port:process.env.RABBIT_MQ_PORT,
+        connection:process.env.RABBIT_MQ_CONNECTION_STRING,
+        queue:process.env.RABBIT_MQ_QUEUE
     }
 }
 module.exports = config;
