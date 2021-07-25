@@ -3,6 +3,7 @@ const {
   MessageEncodingDecodingUtil,
 } = require("../utils/MessageEncodingDecodingUtil");
 let  messageQueue = require('./MessageService');
+const MessageModel = require('./../models/MessageSample');
 messageQueue = new messageQueue()
 //let database = require('./../connections/mongo-con');
 class ListenerService extends EventEmitter {

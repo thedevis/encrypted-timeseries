@@ -1,3 +1,20 @@
+
+const MessageModel =require('./../models/MessageSample');
+require('./../connections/mongo-con');
+const message = new MessageModel({
+  timestamp_minute:new Date(),
+  total_message_count:10,
+  message_data:[]
+});
+
+message.save()
+    .then(data => {
+        //res.send(data);
+        console.log(data);
+    }).catch(err => {
+        console.error(err)
+    });
+
 class MessageQueueService {
     constructor(queueName) {
       const config = require("./../config/config");
@@ -20,8 +37,9 @@ class MessageQueueService {
       this.channel.sendToQueue(this.QUEUE_NAME, Buffer.from(message), {
           persistent: true,
         });  
-      }
-  }
+    }
+    
+}
   module.exports = MessageQueueService;
   
 

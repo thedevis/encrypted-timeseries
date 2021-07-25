@@ -11,7 +11,9 @@ const MessageSample = new mongoose.Schema({
     message_data:{
         type:Array
     }
+},{
+    timestamps: true
 })
 MessageSample.index({timestamp_minute:1},{ unique: true });
-const model = mongoose.model('message', MessageSample)
+const model = mongoose.model('message_time_series', MessageSample)
 module.exports=model;

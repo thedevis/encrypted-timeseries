@@ -1,7 +1,6 @@
 const path = require('path')
 require("dotenv").config({ path: path.resolve(__dirname, '.env') })
 const config = require('./config/config');
-const db = require('./connections/mongoConnection');
 const io = require("socket.io-client");
 const { ListenerService } = require("./services/ListenerService");
 const listerService = new ListenerService()
