@@ -15,6 +15,10 @@ const config={
         database:process.env.MONGO_DATABASE,
         username:process.env.MONGO_USERNAME,
         password:process.env.MONGO_PASSWORD
+    },
+    rabbitMQ:{
+        host:process.env.RABBIT_MQ_HOST,
+        port:process.env.RABBIT_MQ_PORT,
     }
 }
 module.exports = config;
