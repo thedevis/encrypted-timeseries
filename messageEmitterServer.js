@@ -1,22 +1,27 @@
-require("dotenv").config();
+const path = require('path')
+require("dotenv").config({ path: path.resolve(__dirname, '.env') });
 const dataSource = require("./data.json");
+const config = require('./src/config/config');
 const { EmitterService } = require("./src/services/EmitterService");
 
-const port = 3009;
 const http = require("http").createServer();
 const io = require("socket.io")(http);
-//Listen for a client connection
 io.on("connection", (socket) => {
-  console.log("New Client is Connected!");
-  let emitterServiceObj = new EmitterService({ count: 10, source: dataSource });
   setInterval(() => {
-    socket.emit("message", emitterServiceObj.generateMessageStream());
-  }, 1000 * 5);
+    let randomMessageCount = Math.floor(Math.random() * (parseInt(config.app.MESSAGE_MAX_COUNT) - parseInt(config.app.MESSAGE_MIN_COUNT) + 1) + parseInt(config.app.MESSAGE_MIN_COUNT));
+    let emitterServiceObj = new EmitterService({ count: randomMessageCount, source: dataSource });
+    let _messagePacket = emitterServiceObj.generateMessageStream();
+    console.log(`message count: ${randomMessageCount}`);
+    console.log(`Encrypted Message - ${_messagePacket}`);
+    socket.emit("message", _messagePacket);
+
+  }, 1000 * parseInt(config.app.EMITTER_SERVICE_INTERVAL));
 });
 io.on("disconnect",()=>{
   console.log("client disconnected");
 })
 
-http.listen(port, () => {
-  console.log("Server Is Running Port: " + port);
+http.listen(parseInt(config.app.EMITTER_SERVICE_PORT), () => {
+  console.log("Server Is Running Port: " + config.app.EMITTER_SERVICE_PORT);
 });
+

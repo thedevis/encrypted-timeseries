@@ -14,8 +14,11 @@ class ListenerService extends EventEmitter {
       let originalMessage = JSON.parse(_message);
       delete originalMessage.secret_key;
       originalMessage.created_at = new Date();
+      //pass wo mongodb
+      this.emit("data",originalMessage)
       console.log(originalMessage);
     });
   }
 }
+
 module.exports = { ListenerService };

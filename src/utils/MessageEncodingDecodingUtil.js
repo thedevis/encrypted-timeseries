@@ -1,3 +1,4 @@
+const config = require('./../config/config');
 const crypto = require("crypto");
 class MessageEncodingDecodingUtil {
   constructor() {}
@@ -10,8 +11,8 @@ class MessageEncodingDecodingUtil {
   static encrypt(obj) {
     let text = JSON.stringify(obj); //new MessageEncodingDecodingUtil().serialize(obj);
     const algorithm = "aes-256-ctr";
-    const secretKey = "vOVH6sdmpNWjRRIqCc7rdxs01lwHzfr3";
-    const iv = Buffer.from("912b8cecf96719f97cfd3b814f83fe59", "hex");
+    const secretKey = config.app.SECRET_KEY;
+    const iv = Buffer.from(config.app.IV, "hex");
     const cipher = crypto.createCipheriv(algorithm, secretKey, iv);
     const encrypted = Buffer.concat([cipher.update(text), cipher.final()]);
 
@@ -22,8 +23,8 @@ class MessageEncodingDecodingUtil {
   }
   static decrypt(hash) {
     const algorithm = "aes-256-ctr";
-    const secretKey = "vOVH6sdmpNWjRRIqCc7rdxs01lwHzfr3";
-    const iv = Buffer.from("912b8cecf96719f97cfd3b814f83fe59", "hex");
+    const secretKey = config.app.SECRET_KEY;
+    const iv = Buffer.from(config.app.IV, "hex");
     const decipher = crypto.createDecipheriv(
       algorithm,
       secretKey,
